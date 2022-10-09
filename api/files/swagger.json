@@ -1,0 +1,304 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API Mock server",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "/api"
+    }
+  ],
+  "paths": {
+    "/book": {
+      "get": {
+        "summary": "List all books",
+        "tags": [
+          "Book"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "description": "Page",
+            "schema": {
+              "type": "integer",
+              "minimum": 1,
+              "default": 1
+            }
+          },
+          {
+            "name": "search[title]",
+            "in": "query",
+            "required": false,
+            "description": "Search by title (like)",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search[author]",
+            "in": "query",
+            "required": false,
+            "description": "Search by authors (like)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of books",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "items": {
+                        "$ref": "#/components/schemas/Book"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/book/{book_id}": {
+      "parameters": [
+        {
+          "name": "book_id",
+          "in": "path",
+          "required": true,
+          "description": "Book ID",
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Book details",
+        "tags": [
+          "Book"
+        ],
+        "responses": {
+          "200": {
+            "description": "Single book",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/Book"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "$ref": "#/components/responses/not-found-error"
+          }
+        }
+      }
+    },
+    "/order": {
+      "post": {
+        "summary": "Order books from bookshop",
+        "tags": [
+          "Order"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Order"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Fake store",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "properties": {
+                        "new_teacher": {
+                          "type": "boolean"
+                        },
+                        "ordered_materials": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "$ref": "#/components/responses/form-validation-error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "form-validation-error": {
+        "description": "Request have validation errors",
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    },
+                    "violations": {
+                      "properties": {
+                        "_field_name_": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "not-found-error": {
+        "description": "Record was not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "properties": {
+                "error": {
+                  "properties": {
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Book": {
+        "required": [
+          "id",
+          "title",
+          "author",
+          "cover_url",
+          "pages",
+          "price",
+          "currency"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Book ID"
+          },
+          "title": {
+            "type": "string",
+            "description": "Book title"
+          },
+          "author": {
+            "type": "string",
+            "description": "Book authors comma separated"
+          },
+          "cover_url": {
+            "type": "string",
+            "description": "Full path to image with cover"
+          },
+          "pages": {
+            "type": "integer",
+            "description": "Count of pages in book"
+          },
+          "price": {
+            "type": "integer",
+            "description": "Book price set in cents"
+          },
+          "currency": {
+            "type": "string",
+            "description": "Currency codename (ISO 4217)"
+          }
+        }
+      },
+      "Order": {
+        "required": [
+          "order",
+          "first_name",
+          "last_name",
+          "city",
+          "zip_code"
+        ],
+        "properties": {
+          "order": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/OrderElement"
+            }
+          },
+          "first_name": {
+            "type": "string",
+            "description": "First name"
+          },
+          "last_name": {
+            "type": "string",
+            "description": "Last name"
+          },
+          "city": {
+            "type": "string",
+            "description": "City"
+          },
+          "zip_code": {
+            "type": "string",
+            "description": "Zip code (00-000 format)"
+          }
+        }
+      },
+      "OrderElement": {
+        "required": [
+          "id",
+          "quantity"
+        ],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Book ID"
+          },
+          "quantity": {
+            "type": "integer",
+            "description": "Quantity"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Book",
+      "description": "Information about books"
+    },
+    {
+      "name": "Order",
+      "description": "Make order in bookshop"
+    }
+  ]
+}
