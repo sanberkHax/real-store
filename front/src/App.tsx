@@ -3,7 +3,6 @@ import { Home } from './pages/Home';
 import { MyCart } from './pages/MyCart';
 import { Checkout } from './pages/Checkout';
 import { NotFound } from './pages/NotFound';
-import { Header } from './Layout/Header';
 import { Layout } from './Layout/Layout';
 
 function App() {
