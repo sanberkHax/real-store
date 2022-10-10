@@ -1,3 +1,32 @@
+import { OrderForm } from './../Components/OrderForm/OrderForm';
+import { useSelector } from 'react-redux';
+import { selectCartArray } from './../slices/cartSlice';
+import { Button } from './../Components/Button/Button';
+import { useNavigate } from 'react-router-dom';
+
 export const Checkout = () => {
-  return <div>Checkout</div>;
+  const cart = useSelector(selectCartArray);
+  const navigate = useNavigate();
+
+  const goBackHandler = () => {
+    navigate('/');
+  };
+
+  return (
+    <main className="flex-1 px-2 sm:px-4 md:px-8 lg:px-10 xl:px-24 py-8 flex flex-col justify-center items-center gap-10">
+      {cart.length === 0 ? (
+        <div className="flex flex-col gap-4 items-center justify-center m-auto">
+          <p className="font-bold">Your Cart Is Empty</p>
+          <Button text="Go back" onClick={goBackHandler} />
+        </div>
+      ) : (
+        <>
+          <h1 className="text-red-400 font-bold text-2xl text-center">
+            Checkout
+          </h1>
+          <OrderForm />
+        </>
+      )}
+    </main>
+  );
 };

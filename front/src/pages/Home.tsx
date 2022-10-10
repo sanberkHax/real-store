@@ -15,7 +15,7 @@ export const Home = () => {
   }, [dispatch, books]);
 
   return (
-    <main className="flex-1 px-2 sm:px-4 md:px-8 lg:px-10 xl:px-24 py-8">
+    <main className="flex-1 px-2 sm:px-4 md:px-8 lg:px-10 xl:px-24 py-8 mt-10">
       <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4  xl:grid-cols-5 place-items-center gap-8">
         {books.map(
           ({ id, title, author, cover_url, currency, pages, price }) => (

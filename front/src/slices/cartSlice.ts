@@ -24,8 +24,12 @@ const initialState: CartState = {
   totalQuantity: 0,
 };
 
+interface OrderItem {
+  id: number;
+  quantity: number;
+}
 interface OrderState {
-  order: [];
+  order: OrderItem[];
   first_name: string;
   last_name: string;
   city: string;
@@ -35,7 +39,14 @@ interface OrderState {
 export const placeOrder = createAsyncThunk(
   'cart/placeOrder',
   async (orderData: OrderState) => {
-    console.log(orderData);
+    await fetch('http://localhost:3001/api/order', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(orderData),
+    });
   }
 );
 
