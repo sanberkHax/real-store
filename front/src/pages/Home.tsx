@@ -9,8 +9,10 @@ export const Home = () => {
   const books = useSelector(selectBooks);
 
   useEffect(() => {
-    dispatch(getBooks());
-  }, [dispatch]);
+    if (books.length === 0) {
+      dispatch(getBooks());
+    }
+  }, [dispatch, books]);
 
   return (
     <main className="flex-1 px-2 sm:px-4 md:px-8 lg:px-10 xl:px-24 py-8">
@@ -18,6 +20,7 @@ export const Home = () => {
         {books.map(
           ({ id, title, author, cover_url, currency, pages, price }) => (
             <BookItem
+              type="vertical"
               key={id}
               id={id}
               title={title}

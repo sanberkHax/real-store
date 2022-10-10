@@ -1,8 +1,10 @@
 import React from 'react';
-import { addToCart, updateTotalQuantity } from '../../slices/cartSlice';
+import { addToCart, removeItem } from '../../slices/cartSlice';
 import { Button } from './../Button/Button';
 import { useAppDispatch } from './../../app/hooks';
 import { CartItem } from './../../slices/cartSlice';
+import { ReactComponent as TrashIcon } from '../../assets/trashIcon.svg';
+
 interface BookItemProps {
   id: number;
   title: string;
@@ -11,6 +13,8 @@ interface BookItemProps {
   pages: number;
   price: number;
   currency: string;
+  quantity?: number;
+  type: 'vertical' | 'horizontal';
 }
 
 export const BookItem: React.FC<BookItemProps> = ({
@@ -21,6 +25,8 @@ export const BookItem: React.FC<BookItemProps> = ({
   pages,
   price,
   currency,
+  type,
+  quantity,
 }) => {
   const dispatch = useAppDispatch();
 
@@ -36,15 +42,42 @@ export const BookItem: React.FC<BookItemProps> = ({
       quantity: 1,
     };
     dispatch(addToCart(bookItem));
-    dispatch(updateTotalQuantity());
   };
 
+  const removeItemHandler = () => {
+    dispatch(removeItem(id));
+  };
+
+  if (type === 'horizontal') {
+    return (
+      <li className="flex w-46 flex-col md:flex-row justify-between gap-2 md:gap-10 items-center p-4 rounded-md hover:shadow-2xl text-center h-full border-b-2">
+        <img
+          src={cover_url}
+          alt={title}
+          className="p-4 border-solid w-40 border-gray-400 border-2 rounded-md"
+        />
+        <h2 className="font-bold text-lg flex-1">{title}</h2>
+        <h3 className="font-bold text-gray-500 text-sm flex-1">{author}</h3>
+        <p className="self-center font-bold flex-1">{`${pages} Pages`}</p>
+        <div className="flex flex-col gap-2 text-center">
+          <h2 className="font-bold text-xl">{`${price} ${currency}`}</h2>
+          <h2 className="font-bold text-xl">{`Quantity: ${quantity}`}</h2>
+        </div>
+        <button
+          className="fill-red-400 hover:fill-red-600"
+          onClick={removeItemHandler}
+        >
+          <TrashIcon />
+        </button>
+      </li>
+    );
+  }
   return (
     <li className="flex flex-col w-46 justify-between gap-2 items-center p-10 sm:p-8 md:p-6 lg:p-4 xl:p-2 hover:shadow-2xl text-center h-full">
       <img
         src={cover_url}
         alt={title}
-        className="p-4 border-solid w-40 border-gray-400 border-2 rounded-md"
+        className="p-4 border-solid w-40 border-gray-400 border-2 rounded-md h-52"
       />
       <h2 className="font-bold text-lg">{title}</h2>
       <h3 className="font-bold text-gray-500 text-sm">{author}</h3>

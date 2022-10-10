@@ -58,24 +58,37 @@ export const cartSlice = createSlice({
       }
     },
     removeItem: (state, action: PayloadAction<number>) => {
-      const filteredCart = state.cart.filter(
-        (item) => item.id !== action.payload
-      );
-      state.cart = filteredCart;
+      const removedItem = state.cart.find((item) => item.id === action.payload);
+
+      // Remove item from cart when it's quantity is 1, otherwise decrease its quantity
+      if (removedItem) {
+        if (removedItem?.quantity === 1) {
+          const filteredCart = state.cart.filter(
+            (item) => item.id !== action.payload
+          );
+          state.cart = filteredCart;
+        } else {
+          removedItem.quantity--;
+        }
+      }
     },
     updateTotalQuantity: (state) => {
       // Make a new array with cart items' quantity values
       const quantities = state.cart.map((cartItem) => cartItem.quantity);
 
-      // Calculate total quantity of cart items'
-      const calculatedTotalQuantity = quantities.reduce(
-        (previousValue, currentValue) => {
-          return previousValue + currentValue;
-        }
-      );
+      if (quantities.length > 0) {
+        // Calculate total quantity of cart items'
+        const calculatedTotalQuantity = quantities.reduce(
+          (previousValue, currentValue) => {
+            return previousValue + currentValue;
+          }
+        );
 
-      // Set calculated value as totalQuantity
-      state.totalQuantity = calculatedTotalQuantity;
+        // Set calculated value as totalQuantity
+        state.totalQuantity = calculatedTotalQuantity;
+      } else {
+        state.totalQuantity = 0;
+      }
     },
   },
   extraReducers: (builder) => {
@@ -94,6 +107,9 @@ export const cartSlice = createSlice({
 
 export const { addToCart, removeItem, updateTotalQuantity } = cartSlice.actions;
 
-export const selectCart = (state: RootState) => state.cart;
+export const selectCartState = (state: RootState) => state.cart;
+export const selectCartArray = (state: RootState) => state.cart.cart;
+export const selectTotalQuantity = (state: RootState) =>
+  state.cart.totalQuantity;
 
 export default cartSlice.reducer;
