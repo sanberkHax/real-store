@@ -18,7 +18,7 @@ export const BookItem: React.FC<BookItemProps> = ({
   currency,
 }) => {
   return (
-    <li className="flex flex-col w-46 justify-center gap-2 items-center p-10 sm:p-8 md:p-6 lg:p-4 xl:p-2 hover:shadow-2xl text-center">
+    <li className="flex flex-col w-46 justify-between gap-2 items-center p-10 sm:p-8 md:p-6 lg:p-4 xl:p-2 hover:shadow-2xl text-center h-full">
       <img
         src={cover}
         alt={title}

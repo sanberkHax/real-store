@@ -21,15 +21,11 @@ const initialState: Books = {
   status: 'idle',
 };
 
-export const getBooks = createAsyncThunk(
-  'books/getBooks',
-  async (orderData: { data: Book[] }) => {
-    const response = await fetch('http://localhost:3001/api/book?page=1');
-    const books = await response.json();
-    console.log(books);
-    return books.data;
-  }
-);
+export const getBooks = createAsyncThunk('books/getBooks', async () => {
+  const response = await fetch('http://localhost:3001/api/book?page=1');
+  const books = await response.json();
+  return books.data;
+});
 
 export const booksSlice = createSlice({
   name: 'books',
@@ -50,6 +46,6 @@ export const booksSlice = createSlice({
   },
 });
 
-export const selectBooks = (state: RootState) => state.books;
+export const selectBooks = (state: RootState) => state.books.books;
 
 export default booksSlice.reducer;
