@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { BookItem } from '../Components/BookItem/BookItem';
 import { getBooks, selectBooks } from './../slices/booksSlice';
 import { useAppDispatch } from './../app/hooks';
@@ -19,9 +19,10 @@ export const Home = () => {
           ({ id, title, author, cover_url, currency, pages, price }) => (
             <BookItem
               key={id}
+              id={id}
               title={title}
               author={author}
-              cover={cover_url}
+              cover_url={cover_url}
               pages={pages}
               currency={currency}
               price={price}

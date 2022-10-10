@@ -1,15 +1,27 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../app/store';
-import { Book } from './booksSlice';
+
+export interface CartItem {
+  id: number;
+  title: string;
+  author: string;
+  cover_url: string;
+  pages: number;
+  price: number;
+  currency: string;
+  quantity: number;
+}
 
 export interface CartState {
-  cart: Book[];
+  cart: CartItem[];
   status: 'idle' | 'loading' | 'failed';
+  totalQuantity: number;
 }
 
 const initialState: CartState = {
   cart: [],
   status: 'idle',
+  totalQuantity: 0,
 };
 
 interface OrderState {
@@ -31,14 +43,39 @@ export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    addToCart: (state, action: PayloadAction<Book>) => {
-      state.cart.push(action.payload);
+    addToCart: (state, action: PayloadAction<CartItem>) => {
+      // Check if item already exists in cart
+      const itemInCart = state.cart.find(
+        (item) => item.id === action.payload.id
+      );
+
+      // If it exists, increment its quantity instead
+      if (itemInCart) {
+        itemInCart.quantity++;
+      } else {
+        // If it doesn't, add item to cart
+        state.cart.push({ ...action.payload, quantity: 1 });
+      }
     },
     removeItem: (state, action: PayloadAction<number>) => {
       const filteredCart = state.cart.filter(
         (item) => item.id !== action.payload
       );
       state.cart = filteredCart;
+    },
+    updateTotalQuantity: (state) => {
+      // Make a new array with cart items' quantity values
+      const quantities = state.cart.map((cartItem) => cartItem.quantity);
+
+      // Calculate total quantity of cart items'
+      const calculatedTotalQuantity = quantities.reduce(
+        (previousValue, currentValue) => {
+          return previousValue + currentValue;
+        }
+      );
+
+      // Set calculated value as totalQuantity
+      state.totalQuantity = calculatedTotalQuantity;
     },
   },
   extraReducers: (builder) => {
@@ -55,7 +92,7 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { addToCart, removeItem } = cartSlice.actions;
+export const { addToCart, removeItem, updateTotalQuantity } = cartSlice.actions;
 
 export const selectCart = (state: RootState) => state.cart;
 

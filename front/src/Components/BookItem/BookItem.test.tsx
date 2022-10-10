@@ -4,9 +4,10 @@ import { BookItem } from './BookItem';
 it('should render correctly', () => {
   render(
     <BookItem
+      id={1}
       title="Matematyka 1. Podręcznik. Zakres podstawowy"
       author="M. Karpiński, M. Dobrowolska, M. Braun, J. Lech"
-      cover="http://localhost:3001/static/cover/book/457.jpg"
+      cover_url="http://localhost:3001/static/cover/book/457.jpg"
       pages={280}
       currency="PLN"
       price={3200}
