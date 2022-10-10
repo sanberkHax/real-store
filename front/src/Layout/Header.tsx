@@ -2,7 +2,7 @@ import { ReactComponent as CartIcon } from '../assets/cartIcon.svg';
 
 export const Header = () => {
   return (
-    <header className="w-full h-10 flex justify-between items-center sticky top-0 bg-white">
+    <header className="w-full h-10 flex justify-between items-center sticky top-0 bg-white px-2 sm:px-4 md:px-8 lg:px-10 py-8">
       <h1 className="font-bold text-2xl sm:text-3xl text-red-400">
         Book Store
       </h1>
