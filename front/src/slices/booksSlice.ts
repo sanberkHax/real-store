@@ -11,12 +11,12 @@ export interface Book {
   currency: string;
 }
 
-export interface Books {
+export interface BooksState {
   books: Book[];
   status: 'idle' | 'loading' | 'failed';
 }
 
-const initialState: Books = {
+const initialState: BooksState = {
   books: [],
   status: 'idle',
 };

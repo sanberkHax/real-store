@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '../../app/hooks';
-import { selectCartArray, placeOrder } from './../../slices/cartSlice';
+import {
+  selectCartArray,
+  placeOrder,
+  emptyCart,
+} from './../../slices/cartSlice';
 import { Button } from './../Button/Button';
+import { useNavigate } from 'react-router-dom';
 
 export const OrderForm = () => {
   const [firstName, setFirstName] = useState('');
@@ -12,8 +17,9 @@ export const OrderForm = () => {
 
   const cart = useSelector(selectCartArray);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const placeOrderHandler = (e: React.FormEvent<HTMLFormElement>) => {
+  const placeOrderHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const order = cart.map((item) => {
       return { id: item.id, quantity: item.quantity };
@@ -25,7 +31,13 @@ export const OrderForm = () => {
       city: city,
       zip_code: zipCode,
     };
-    dispatch(placeOrder(requestObject));
+    const resultAction = await dispatch(placeOrder(requestObject));
+
+    if (placeOrder.fulfilled.match(resultAction)) {
+      dispatch(emptyCart());
+      alert('Order Succesful!');
+      navigate('/');
+    }
   };
 
   return (

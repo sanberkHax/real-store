@@ -83,6 +83,7 @@ export const cartSlice = createSlice({
         }
       }
     },
+    emptyCart: (state) => initialState,
     updateTotalQuantity: (state) => {
       // Make a new array with cart items' quantity values
       const quantities = state.cart.map((cartItem) => cartItem.quantity);
@@ -110,13 +111,14 @@ export const cartSlice = createSlice({
       .addCase(placeOrder.fulfilled, (state, action) => {
         state.status = 'idle';
       })
-      .addCase(placeOrder.rejected, (state) => {
+      .addCase(placeOrder.rejected, (state, action) => {
         state.status = 'failed';
       });
   },
 });
 
-export const { addToCart, removeItem, updateTotalQuantity } = cartSlice.actions;
+export const { addToCart, removeItem, updateTotalQuantity, emptyCart } =
+  cartSlice.actions;
 
 export const selectCartState = (state: RootState) => state.cart;
 export const selectCartArray = (state: RootState) => state.cart.cart;

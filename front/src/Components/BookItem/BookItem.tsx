@@ -64,6 +64,7 @@ export const BookItem: React.FC<BookItemProps> = ({
           <h2 className="font-bold text-xl">{`Quantity: ${quantity}`}</h2>
         </div>
         <button
+          data-testid="delete-book"
           className="fill-red-400 hover:fill-red-600"
           onClick={removeItemHandler}
         >
