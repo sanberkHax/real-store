@@ -4,7 +4,7 @@ E-Commerce website for books. Made with React, Redux and TypeScript.
 
 > :warning: api was provided as a case study. I'm only responsible from the frontend.
 
-## To test locally:
+## To run locally:
 
 go into `api` folder and run `npm install` to install api dependencies
 
