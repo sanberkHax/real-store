@@ -1,6 +1,6 @@
 # Book Store
 
-E-Commerce website for books. Made with React, Redux and TypeScript.
+E-Commerce website for books. Made with React, Redux, Tailwind and TypeScript.
 
 > :warning: api was provided as a case study. I'm only responsible from the frontend.
 
