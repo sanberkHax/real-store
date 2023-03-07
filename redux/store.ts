@@ -5,8 +5,8 @@ import {
   PreloadedState,
   combineReducers,
 } from '@reduxjs/toolkit';
-import cartReducer from '../slices/cartSlice';
-import booksReducer from '../slices/booksSlice';
+import cartReducer from './slices/cartSlice';
+import booksReducer from './slices/booksSlice';
 
 const rootReducer = combineReducers({
   cart: cartReducer,

@@ -1,6 +1,7 @@
 import { screen } from '@testing-library/react';
 import { renderWithProviders } from '../utils/test-utils';
-import { Header } from './Header';
+import { Header } from '@/Components/Header';
+
 describe('Header', () => {
   it('should render correct cart item numbers', async () => {
     renderWithProviders(<Header />, {

@@ -1,9 +1,7 @@
-import React from 'react';
-import { addToCart, removeItem } from '../../slices/cartSlice';
+import { addToCart, removeItem } from '@/redux/slices/cartSlice';
 import { Button } from './../Button/Button';
-import { useAppDispatch } from './../../app/hooks';
-import { CartItem } from './../../slices/cartSlice';
-import { ReactComponent as TrashIcon } from '../../assets/trashIcon.svg';
+import { useAppDispatch } from '@/redux/hooks';
+import { CartItem } from '@/redux/slices/cartSlice';
 
 interface BookItemProps {
   id: number;
@@ -68,7 +66,7 @@ export const BookItem: React.FC<BookItemProps> = ({
           className="fill-red-400 hover:fill-red-600"
           onClick={removeItemHandler}
         >
-          <TrashIcon />
+          <img src="/trashIcon.svg" alt="Trash icon" />
         </button>
       </li>
     );

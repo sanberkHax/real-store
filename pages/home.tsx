@@ -1,10 +1,10 @@
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { BookItem } from '../Components/BookItem/BookItem';
-import { getBooks, selectBooks } from './../slices/booksSlice';
-import { useAppDispatch } from './../app/hooks';
+import { BookItem } from '@/Components/BookItem/BookItem';
+import { getBooks, selectBooks } from '@/redux/slices/booksSlice';
+import { useAppDispatch } from '@/redux/hooks';
 
-export const Home = () => {
+export default function Home() {
   const dispatch = useAppDispatch();
   const books = useSelector(selectBooks);
 
@@ -35,4 +35,4 @@ export const Home = () => {
       </ul>
     </main>
   );
-};
+}

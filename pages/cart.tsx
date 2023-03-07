@@ -1,19 +1,19 @@
-import { selectCartArray } from '../slices/cartSlice';
+import { selectCartArray } from '@/redux/slices/cartSlice';
+import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
-import { BookItem } from './../Components/BookItem/BookItem';
-import { Button } from './../Components/Button/Button';
-import { useNavigate } from 'react-router-dom';
+import { BookItem } from '@/Components/BookItem/BookItem';
+import { Button } from '@/Components/Button/Button';
 
-export const MyCart = () => {
+export default function MyCart() {
   const cart = useSelector(selectCartArray);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const nextPageHandler = () => {
-    navigate('/checkout');
+    router.push('/checkout');
   };
 
   const goBackHandler = () => {
-    navigate('/');
+    router.push('/');
   };
 
   return (
@@ -59,4 +59,4 @@ export const MyCart = () => {
       )}
     </main>
   );
-};
+}

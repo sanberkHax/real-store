@@ -1,9 +1,9 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { renderWithProviders } from '../utils/test-utils';
+import { renderWithProviders } from '../src/utils/test-utils';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { Checkout } from './Checkout';
+import { Checkout } from '../pages/Checkout';
 
 // Intercept network request with msw and return example response
 export const handlers = [

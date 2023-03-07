@@ -1,15 +1,15 @@
-import { OrderForm } from './../Components/OrderForm/OrderForm';
+import { OrderForm } from '@/Components/OrderForm/OrderForm';
 import { useSelector } from 'react-redux';
-import { selectCartArray } from './../slices/cartSlice';
-import { Button } from './../Components/Button/Button';
-import { useNavigate } from 'react-router-dom';
+import { selectCartArray } from '@/redux/slices/cartSlice';
+import { Button } from '@/Components/Button/Button';
+import { useRouter } from 'next/router';
 
-export const Checkout = () => {
+export default function Checkout() {
   const cart = useSelector(selectCartArray);
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const goBackHandler = () => {
-    navigate('/');
+    router.push('/');
   };
 
   return (
@@ -29,4 +29,4 @@ export const Checkout = () => {
       )}
     </main>
   );
-};
+}

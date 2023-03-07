@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../../app/hooks';
+import { useAppDispatch } from '@/redux/hooks';
 import {
   selectCartArray,
   placeOrder,
   emptyCart,
-} from './../../slices/cartSlice';
+} from '@/redux/slices/cartSlice';
 import { Button } from './../Button/Button';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/router';
 
 export const OrderForm = () => {
   const [firstName, setFirstName] = useState('');
@@ -17,7 +17,7 @@ export const OrderForm = () => {
 
   const cart = useSelector(selectCartArray);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const placeOrderHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -36,7 +36,7 @@ export const OrderForm = () => {
     if (placeOrder.fulfilled.match(resultAction)) {
       dispatch(emptyCart());
       alert('Order Succesful!');
-      navigate('/');
+      router.push('/');
     }
   };
 
