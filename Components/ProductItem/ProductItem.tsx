@@ -21,7 +21,7 @@ export const ProductItem = ({ id, title, price, image }: Props) => {
           />
         </div>
         <h1 className="font-bold">{title}</h1>
-        <h2 className="font-bold text-orange-600">{price}</h2>
+        <h2 className="font-bold text-orange-600">{price}$</h2>
       </div>
     </Link>
   );

@@ -18,9 +18,9 @@ export const Header = () => {
   }, [cart, dispatch]);
 
   return (
-    <header className="w-full h-10 flex justify-between items-center fixed bg-white px-2 sm:px-4 md:px-8 lg:px-10 py-8">
+    <header className="w-full h-10 flex justify-between items-center fixed bg-white px-2 sm:px-4 md:px-8 lg:px-10 py-8 z-10">
       <Link href="/" className="font-bold text-2xl sm:text-3xl text-red-400">
-        Book Store
+        Real Store
       </Link>
       <Link
         href="/my-cart"
