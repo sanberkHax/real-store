@@ -6,11 +6,9 @@ import {
   combineReducers,
 } from '@reduxjs/toolkit';
 import cartReducer from './slices/cartSlice';
-import booksReducer from './slices/booksSlice';
 
 const rootReducer = combineReducers({
   cart: cartReducer,
-  books: booksReducer,
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
@@ -23,7 +21,6 @@ export function setupStore(preloadedState?: PreloadedState<RootState>) {
 export const store = configureStore({
   reducer: {
     cart: cartReducer,
-    books: booksReducer,
   },
 });
 
