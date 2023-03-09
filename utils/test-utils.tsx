@@ -3,9 +3,8 @@ import { render } from '@testing-library/react';
 import type { RenderOptions } from '@testing-library/react';
 import type { PreloadedState } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import { BrowserRouter } from 'react-router-dom';
-import type { AppStore, RootState } from '../app/store';
-import { setupStore } from './../app/store';
+import type { AppStore, RootState } from '@/redux/store';
+import { setupStore } from '@/redux/store';
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.
@@ -19,7 +18,6 @@ export function renderWithProviders(
   {
     preloadedState = {
       cart: { cart: [], status: 'idle', totalQuantity: 0 },
-      books: { books: [], status: 'idle' },
     },
     // Automatically create a store instance if no store was passed in
     store = setupStore(preloadedState),
@@ -27,11 +25,7 @@ export function renderWithProviders(
   }: ExtendedRenderOptions = {}
 ) {
   function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
-    return (
-      <BrowserRouter>
-        <Provider store={store}>{children}</Provider>
-      </BrowserRouter>
-    );
+    return <Provider store={store}>{children}</Provider>;
   }
 
   // Return an object with the store and all of RTL's query functions

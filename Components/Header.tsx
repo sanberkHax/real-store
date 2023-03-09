@@ -23,7 +23,7 @@ export const Header = () => {
         Real Store
       </Link>
       <Link
-        href="/my-cart"
+        href="/cart"
         className="flex justify-between gap-8 items-center relative"
       >
         <h1 className="font-bold text-xl sm:text-2xl">My Cart</h1>

@@ -1,7 +1,7 @@
 import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import App from '../pages';
-import { renderWithProviders } from '../src/utils/test-utils';
+import App from '@/pages';
+import { renderWithProviders } from '@/utils/test-utils';
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
 
