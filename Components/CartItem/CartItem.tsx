@@ -1,8 +1,8 @@
 import { useAppDispatch } from '@/redux/hooks';
-import { changePrice, removeItem } from '@/redux/slices/cartSlice';
+import { changePrice, deleteItem, removeItem } from '@/redux/slices/cartSlice';
 import Image from 'next/image';
-import React, { useState, useContext, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { FaTrash } from 'react-icons/fa';
 
 type Props = {
   price: number;
@@ -24,21 +24,16 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
     }
     setCurrentAmount(newQuantity);
     dispatch(changePrice({ id, quantity: newQuantity }));
-    // updateTotalAmount();
   };
 
   const deleteHandler = () => {
-    // deleteProduct(id);
+    dispatch(deleteItem(id));
   };
-
-  //   useEffect(() => {
-  // calcTotalPrice();
-  //   }, [productsInCart, totalAmount]);
 
   return (
     <li
       className={
-        'cursor-pointer flex justify-center items-center text-center gap-10'
+        'flex justify-center items-center text-center gap-10 border-b-2 border-slate-300 p-10'
       }
     >
       <div className="relative w-24 h-24 sm:w-40 sm:h-40 flex-1">
@@ -63,6 +58,7 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
         className="w-14 rounded-sm p-1 border-black border-2"
         min="0"
       />
+      <FaTrash className="cursor-pointer" onClick={deleteHandler} />
     </li>
   );
 };

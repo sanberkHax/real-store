@@ -13,12 +13,14 @@ export type CartState = {
   cart: CartItem[];
   status: 'idle' | 'loading' | 'failed';
   totalQuantity: number;
+  totalPrice: number;
 };
 
 const initialState: CartState = {
   cart: [],
   status: 'idle',
   totalQuantity: 0,
+  totalPrice: 0,
 };
 
 export const cartSlice = createSlice({
@@ -36,14 +38,6 @@ export const cartSlice = createSlice({
 
       if (matchedProduct) {
         matchedProduct.quantity = action.payload.quantity;
-
-        // let total = matchedProduct.quantity * matchedProduct.price;
-
-        // matchedProduct.total = Number(total.toFixed(2));
-
-        // if (matchedProduct.quantity === 0) {
-        // deleteProduct(matchedProduct.id);
-        // }
       }
     },
     addToCart: (state, action: PayloadAction<CartItem>) => {
@@ -75,6 +69,17 @@ export const cartSlice = createSlice({
         }
       }
     },
+    deleteItem: (state, action: PayloadAction<number>) => {
+      const deletedItem = state.cart.find((item) => item.id === action.payload);
+
+      // Delete item from cart
+      if (deletedItem) {
+        const filteredCart = state.cart.filter(
+          (item) => item.id !== action.payload
+        );
+        state.cart = filteredCart;
+      }
+    },
     emptyCart: (state) => initialState,
     updateTotalQuantity: (state) => {
       // Make a new array with cart items' quantity values
@@ -94,6 +99,16 @@ export const cartSlice = createSlice({
         state.totalQuantity = 0;
       }
     },
+    updateTotalPrice: (state) => {
+      let calculatedTotal = 0;
+
+      // Calculate total price of products
+      state.cart.forEach((product) => {
+        calculatedTotal += product.price * product.quantity;
+      });
+
+      state.totalPrice = Number(calculatedTotal.toFixed(2));
+    },
   },
 });
 
@@ -103,11 +118,14 @@ export const {
   updateTotalQuantity,
   changePrice,
   emptyCart,
+  deleteItem,
+  updateTotalPrice,
 } = cartSlice.actions;
 
 export const selectCartState = (state: RootState) => state.cart;
 export const selectCartArray = (state: RootState) => state.cart.cart;
 export const selectTotalQuantity = (state: RootState) =>
   state.cart.totalQuantity;
+export const selectTotalPrice = (state: RootState) => state.cart.totalPrice;
 
 export default cartSlice.reducer;
