@@ -33,7 +33,7 @@ export const Header = () => {
       {router.pathname === '/cart' && cart.length !== 0 ? (
         <>
           <p className="font-bold">Total Price:${totalPrice}</p>
-          <Button text="Checkout" />
+          <Button text="Checkout" onClick={() => router.push('/checkout')} />
         </>
       ) : (
         <Link
