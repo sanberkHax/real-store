@@ -1,22 +1,19 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/redux/store';
 
-export interface CartItem {
+export type CartItem = {
   id: number;
   title: string;
-  author: string;
-  cover_url: string;
-  pages: number;
-  price: string;
-  currency: string;
+  image: string;
+  price: number;
   quantity: number;
-}
+};
 
-export interface CartState {
+export type CartState = {
   cart: CartItem[];
   status: 'idle' | 'loading' | 'failed';
   totalQuantity: number;
-}
+};
 
 const initialState: CartState = {
   cart: [],
@@ -24,36 +21,31 @@ const initialState: CartState = {
   totalQuantity: 0,
 };
 
-interface OrderItem {
-  id: number;
-  quantity: number;
-}
-interface OrderState {
-  order: OrderItem[];
-  first_name: string;
-  last_name: string;
-  city: string;
-  zip_code: string;
-}
-
-export const placeOrder = createAsyncThunk(
-  'cart/placeOrder',
-  async (orderData: OrderState) => {
-    await fetch('http://localhost:3001/api/order', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(orderData),
-    });
-  }
-);
-
 export const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
+    changePrice: (
+      state,
+      action: PayloadAction<{ id: number; quantity: number }>
+    ) => {
+      // Update product's total price by given quantity
+      const matchedProduct = state.cart.find(
+        (cartProduct) => cartProduct.id === action.payload.id
+      );
+
+      if (matchedProduct) {
+        matchedProduct.quantity = action.payload.quantity;
+
+        // let total = matchedProduct.quantity * matchedProduct.price;
+
+        // matchedProduct.total = Number(total.toFixed(2));
+
+        // if (matchedProduct.quantity === 0) {
+        // deleteProduct(matchedProduct.id);
+        // }
+      }
+    },
     addToCart: (state, action: PayloadAction<CartItem>) => {
       // Check if item already exists in cart
       const itemInCart = state.cart.find(
@@ -103,22 +95,15 @@ export const cartSlice = createSlice({
       }
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(placeOrder.pending, (state) => {
-        state.status = 'loading';
-      })
-      .addCase(placeOrder.fulfilled, (state, action) => {
-        state.status = 'idle';
-      })
-      .addCase(placeOrder.rejected, (state, action) => {
-        state.status = 'failed';
-      });
-  },
 });
 
-export const { addToCart, removeItem, updateTotalQuantity, emptyCart } =
-  cartSlice.actions;
+export const {
+  addToCart,
+  removeItem,
+  updateTotalQuantity,
+  changePrice,
+  emptyCart,
+} = cartSlice.actions;
 
 export const selectCartState = (state: RootState) => state.cart;
 export const selectCartArray = (state: RootState) => state.cart.cart;
