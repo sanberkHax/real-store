@@ -22,11 +22,11 @@ export default function MyCart() {
     router.push('/');
   };
 
-  useEffect(() => {
-    if (cart.length !== 0) {
-      dispatch(updateTotalPrice());
-    }
-  }, [cart]);
+  // useEffect(() => {
+  //   if (cart.length !== 0) {
+
+  //   }
+  // }, [cart]);
 
   return (
     <main className="flex-1 px-2 sm:px-4 md:px-8 lg:px-10 xl:px-24 py-8 flex flex-col gap-4 mt-10">
@@ -36,7 +36,7 @@ export default function MyCart() {
           <Button text="Go back" onClick={goBackHandler} />
         </div>
       ) : (
-        <div className="flex flex-col gap-10 items-center justify-center m-auto">
+        <div className="flex gap-10 m-auto h-full">
           <ul className="flex flex-col gap-4">
             {cart?.map(({ id, image, title, price, quantity }) => (
               <CartItem
@@ -49,7 +49,6 @@ export default function MyCart() {
               />
             ))}
           </ul>
-          <p className="font-bold">Total Price:${totalPrice}</p>
         </div>
       )}
     </main>
