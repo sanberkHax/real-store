@@ -7,26 +7,14 @@ import { useRouter } from 'next/router';
 import { useSelector } from 'react-redux';
 import { Button } from '@/Components/Button/Button';
 import { CartItem } from '@/Components/CartItem/CartItem';
-import { useEffect } from 'react';
-import { useAppDispatch } from '@/redux/hooks';
 
 export default function MyCart() {
   const cart = useSelector(selectCartArray);
-  const totalPrice = useSelector(selectTotalPrice);
-
   const router = useRouter();
-
-  const dispatch = useAppDispatch();
 
   const goBackHandler = () => {
     router.push('/');
   };
-
-  // useEffect(() => {
-  //   if (cart.length !== 0) {
-
-  //   }
-  // }, [cart]);
 
   return (
     <main className="flex-1 px-2 sm:px-4 md:px-8 lg:px-10 xl:px-24 py-8 flex flex-col gap-4 mt-10">
