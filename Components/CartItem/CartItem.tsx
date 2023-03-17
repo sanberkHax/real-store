@@ -33,7 +33,7 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
   return (
     <li
       className={
-        'flex justify-center items-center text-center gap-10 border-b-2 border-slate-300 p-4'
+        'flex justify-center items-center text-center gap-10 border-b-2 border-slate-300 p-4 flex-col sm:flex-row'
       }
     >
       <div className="relative w-24 h-24 sm:w-40 sm:h-40 flex-1">
