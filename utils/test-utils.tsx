@@ -5,6 +5,7 @@ import type { PreloadedState } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import type { AppStore, RootState } from '@/redux/store';
 import { setupStore } from '@/redux/store';
+import { Layout } from '@/Components/Layout';
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.
@@ -25,7 +26,11 @@ export function renderWithProviders(
   }: ExtendedRenderOptions = {}
 ) {
   function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
-    return <Provider store={store}>{children}</Provider>;
+    return (
+      <Provider store={store}>
+        <Layout>{children}</Layout>
+      </Provider>
+    );
   }
 
   // Return an object with the store and all of RTL's query functions
