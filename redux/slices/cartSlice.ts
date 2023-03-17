@@ -11,14 +11,12 @@ export type CartItem = {
 
 export type CartState = {
   cart: CartItem[];
-  status: 'idle' | 'loading' | 'failed';
   totalQuantity: number;
   totalPrice: number;
 };
 
 const initialState: CartState = {
   cart: [],
-  status: 'idle',
   totalQuantity: 0,
   totalPrice: 0,
 };

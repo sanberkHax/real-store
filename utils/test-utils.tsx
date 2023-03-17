@@ -18,7 +18,7 @@ export function renderWithProviders(
   ui: React.ReactElement,
   {
     preloadedState = {
-      cart: { cart: [], status: 'idle', totalQuantity: 0, totalPrice: 0 },
+      cart: { cart: [], totalQuantity: 0, totalPrice: 0 },
     },
     // Automatically create a store instance if no store was passed in
     store = setupStore(preloadedState),
