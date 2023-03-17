@@ -5,7 +5,7 @@ import clsx from 'clsx';
 type Props = {
   id: number;
   title: string;
-  price: string;
+  price: number;
   image?: string;
 };
 export const ProductItem = ({ id, title, price, image }: Props) => {
