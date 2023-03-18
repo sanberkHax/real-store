@@ -2,24 +2,37 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { renderWithProviders } from '../../utils/test-utils';
 import { OrderForm } from './OrderForm';
+
 describe('OrderForm', () => {
-  it('should work correctly', async () => {
+  it('should render required error when inputs are empty', async () => {
     renderWithProviders(<OrderForm />);
-    const firstNameInput = screen.getByLabelText(/First Name/i);
-    const lastNameInput = screen.getByLabelText(/Last Name/i);
-    const cityInput = screen.getByLabelText(/City/i);
-    const zipInput = screen.getByLabelText(/Zip Code/i);
 
-    await userEvent.type(firstNameInput, 'Sanberk');
-    expect(firstNameInput).toHaveValue('Sanberk');
+    const payButton = screen.getByRole('button', { name: 'Pay' });
 
-    await userEvent.type(lastNameInput, 'Turker');
-    expect(lastNameInput).toHaveValue('Turker');
+    userEvent.click(payButton);
+    expect(await screen.findByText(/Email is required/i)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/Card number is required/i)
+    ).toBeInTheDocument();
+    expect(
+      await screen.findByText(/Expiration date is required/i)
+    ).toBeInTheDocument();
+    expect(await screen.findByText(/CVV is required/i)).toBeInTheDocument();
+  });
 
-    await userEvent.type(cityInput, 'Madrid');
-    expect(cityInput).toHaveValue('Madrid');
+  it('should render invalid email error', async () => {
+    renderWithProviders(<OrderForm />);
 
-    await userEvent.type(zipInput, '12-123');
-    expect(zipInput).toHaveValue('12-123');
+    const emailInput = screen.getByLabelText(/Email/i);
+
+    await userEvent.type(emailInput, '123456');
+
+    const payButton = screen.getByRole('button', { name: 'Pay' });
+
+    userEvent.click(payButton);
+
+    expect(
+      await screen.findByText(/Invalid email address/i)
+    ).toBeInTheDocument();
   });
 });
