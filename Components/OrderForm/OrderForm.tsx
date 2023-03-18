@@ -1,96 +1,86 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/redux/hooks';
-import {
-  selectCartArray,
-  placeOrder,
-  emptyCart,
-} from '@/redux/slices/cartSlice';
-import { Button } from './../Button/Button';
+import { selectCartArray, emptyCart } from '@/redux/slices/cartSlice';
+import { Button } from '@/Components/Button/Button';
 import { useRouter } from 'next/router';
+import { useForm, Controller } from 'react-hook-form';
+import { FormInput } from '@/Components/FormInput/FormInput';
+import InputMask from 'react-input-mask';
 
 export const OrderForm = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [zipCode, setZipCode] = useState('');
-  const [city, setCity] = useState('');
-
   const cart = useSelector(selectCartArray);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
-  const placeOrderHandler = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const order = cart.map((item) => {
-      return { id: item.id, quantity: item.quantity };
-    });
-    const requestObject = {
-      order,
-      first_name: firstName,
-      last_name: lastName,
-      city: city,
-      zip_code: zipCode,
-    };
-    const resultAction = await dispatch(placeOrder(requestObject));
+  type FormData = {
+    cardNumber: string;
+    expirationDate: string;
+    cvv: string;
+    email: string;
+  };
 
-    if (placeOrder.fulfilled.match(resultAction)) {
-      dispatch(emptyCart());
-      alert('Order Succesful!');
-      router.push('/');
-    }
+  const {
+    register,
+    handleSubmit,
+    watch,
+    control,
+    formState: { errors },
+  } = useForm<FormData>();
+
+  const onSubmit = (data) => {
+    dispatch(emptyCart());
+    alert(`'Order Succesful!`);
+    router.push('/');
   };
 
   return (
-    <form
-      className="flex flex-col gap-6 justify-center items-center border-4 rounded-md sm:w-1/2 xl:w-1/4 border-black p-10"
-      onSubmit={placeOrderHandler}
-    >
-      <label htmlFor="firstName">First Name</label>
-      <input
-        type="text"
-        id="firstName"
-        name="firstName"
-        value={firstName}
-        required
-        minLength={4}
-        maxLength={50}
-        className="border-2 border-black w-full"
-        onChange={(e) => setFirstName(e.target.value)}
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+      <FormInput
+        label="Email"
+        {...register('email', {
+          pattern: {
+            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+            message: 'Invalid email address',
+          },
+          required: 'Email is required',
+        })}
       />
-      <label htmlFor="lastName">Last Name</label>
-      <input
-        type="text"
-        id="lastName"
-        name="lastName"
-        minLength={5}
-        maxLength={50}
-        required
-        value={lastName}
-        className="border-2 border-black w-full"
-        onChange={(e) => setLastName(e.target.value)}
+      {errors.email && <span>{errors.email.message}</span>}
+
+      <Controller
+        name="cardNumber"
+        control={control}
+        rules={{ required: 'Card number is required' }}
+        render={({ field }) => {
+          return (
+            <InputMask mask="9999 9999 9999 9999" maskPlaceholder="" {...field}>
+              <FormInput label="Card Number" />
+            </InputMask>
+          );
+        }}
       />
-      <label htmlFor="city">City</label>
-      <input
-        type="text"
-        id="city"
-        name="city"
-        required
-        value={city}
-        className="border-2 border-black w-full"
-        onChange={(e) => setCity(e.target.value)}
+      {errors.cardNumber && <span>{errors.cardNumber.message}</span>}
+      <Controller
+        name="expirationDate"
+        control={control}
+        rules={{ required: 'Expiration date is required' }}
+        render={({ field }) => {
+          return (
+            <InputMask mask="99/99" maskPlaceholder="" {...field}>
+              <FormInput label="Expiration Date" />
+            </InputMask>
+          );
+        }}
       />
-      <label htmlFor="zipCode">Zip Code</label>
-      <input
-        type="text"
-        id="zipCode"
-        name="zipCode"
-        required
-        value={zipCode}
-        pattern="\d{2}-\d{3}"
-        className="border-2 border-black w-full"
-        onChange={(e) => setZipCode(e.target.value)}
+      {errors.expirationDate && <span>{errors.expirationDate.message}</span>}
+      <FormInput
+        label="CVV"
+        maxLength={3}
+        {...register('cvv', { required: 'CVV is required' })}
       />
-      <Button text="I Order and Pay" />
+      {errors.cvv && <span>{errors.cvv.message}</span>}
+      <Button text="Pay" />
     </form>
   );
 };
