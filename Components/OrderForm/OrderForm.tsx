@@ -73,11 +73,19 @@ export const OrderForm = () => {
           );
         }}
       />
+
       {errors.expirationDate && <span>{errors.expirationDate.message}</span>}
-      <FormInput
-        label="CVV"
-        maxLength={3}
-        {...register('cvv', { required: 'CVV is required' })}
+      <Controller
+        name="cvv"
+        control={control}
+        rules={{ required: 'CVV is required' }}
+        render={({ field }) => {
+          return (
+            <InputMask mask="999" maskPlaceholder="" {...field}>
+              <FormInput label="CVV" />
+            </InputMask>
+          );
+        }}
       />
       {errors.cvv && <span>{errors.cvv.message}</span>}
       <Button text="Pay" />
