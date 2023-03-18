@@ -36,11 +36,11 @@ describe('Header', () => {
         cart: {
           cart: DUMMY_CART,
           totalQuantity: 1,
-          totalPrice: 100,
+          totalPrice: 109.95,
         },
       },
     });
     expect(screen.getByText(/Checkout/i)).toBeInTheDocument();
-    expect(screen.getByText(/100/i)).toBeInTheDocument();
+    expect(screen.getByText(/109.95/i)).toBeInTheDocument();
   });
 });
