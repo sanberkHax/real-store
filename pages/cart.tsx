@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import { Button } from '@/Components/Button/Button';
 import { CartItem } from '@/Components/CartItem/CartItem';
 
-export default function MyCart() {
+export default function Cart() {
   const cart = useSelector(selectCartArray);
   const router = useRouter();
 

@@ -12,17 +12,17 @@ type Props = {
   id: number;
 };
 export const CartItem = ({ price, image, quantity, title, id }: Props) => {
-  const [currentAmount, setCurrentAmount] = useState(quantity);
+  const [currentQuantity, setCurrentQuantity] = useState(quantity);
 
   const dispatch = useAppDispatch();
 
-  const changeAmountHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const changeQuantityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = Number(e.target.value);
     if (newQuantity === 0) {
       dispatch(removeItem(id));
       return;
     }
-    setCurrentAmount(newQuantity);
+    setCurrentQuantity(newQuantity);
     dispatch(changePrice({ id, quantity: newQuantity }));
   };
 
@@ -50,15 +50,20 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
         $ {(price * quantity).toFixed(2)}
       </h2>
       <input
+        aria-label="quantity-input"
         type="number"
-        name="amount"
-        id="amount"
-        value={currentAmount}
-        onChange={changeAmountHandler}
+        name="quantity"
+        id="quantity"
+        value={currentQuantity}
+        onChange={changeQuantityHandler}
         className="w-14 rounded-sm p-1 border-black border-2"
         min="0"
       />
-      <FaTrash className="cursor-pointer" onClick={deleteHandler} />
+      <FaTrash
+        className="cursor-pointer"
+        onClick={deleteHandler}
+        title="delete"
+      />
     </li>
   );
 };

@@ -28,7 +28,7 @@ describe('Header', () => {
     });
     expect(screen.getByText(/My Cart/i)).toBeInTheDocument();
   });
-  it('should render checkout button if there is a product in cart', () => {
+  it('should render checkout button and total price if there is a product in cart', () => {
     mockRouter.push('/cart');
 
     renderWithProviders(<></>, {
@@ -41,5 +41,6 @@ describe('Header', () => {
       },
     });
     expect(screen.getByText(/Checkout/i)).toBeInTheDocument();
+    expect(screen.getByText(/100/i)).toBeInTheDocument();
   });
 });
