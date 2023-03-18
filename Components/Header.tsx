@@ -33,7 +33,10 @@ export const Header = () => {
       </Link>
       {router.pathname === '/cart' && cart.length !== 0 ? (
         <>
-          <p className="font-bold">Total Price:${totalPrice}</p>
+          <p className="font-bold">
+            <span>Total Price:$</span>
+            {totalPrice}
+          </p>
           <Button text="Checkout" onClick={() => router.push('/checkout')} />
         </>
       ) : (
@@ -42,7 +45,7 @@ export const Header = () => {
           className="flex justify-between gap-8 items-center relative"
         >
           <h1 className="font-bold text-xl sm:text-2xl">My Cart</h1>
-          <Image src="/cartIcon.svg" alt="Cart icon" />
+          <Image src="/cartIcon.svg" alt="Cart icon" width={35} height={35} />
           <div className="rounded-full bg-red-400 w-8 h-8 absolute top-5 right-6 flex justify-center items-center">
             <p className="font-bold">{totalQuantity}</p>
           </div>
