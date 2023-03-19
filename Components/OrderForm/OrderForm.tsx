@@ -23,7 +23,6 @@ export const OrderForm = () => {
   const {
     register,
     handleSubmit,
-    watch,
     control,
     formState: { errors },
   } = useForm<FormData>();
@@ -46,7 +45,11 @@ export const OrderForm = () => {
           required: 'Email is required',
         })}
       />
-      {errors.email && <span>{errors.email.message}</span>}
+      {errors.email && (
+        <span className="text-sm text-red-500 font-bold">
+          {errors.email.message}
+        </span>
+      )}
 
       <Controller
         name="cardNumber"
@@ -60,34 +63,52 @@ export const OrderForm = () => {
           );
         }}
       />
-      {errors.cardNumber && <span>{errors.cardNumber.message}</span>}
-      <Controller
-        name="expirationDate"
-        control={control}
-        rules={{ required: 'Expiration date is required' }}
-        render={({ field }) => {
-          return (
-            <InputMask mask="99/99" maskPlaceholder="" {...field}>
-              <FormInput label="Expiration Date" />
-            </InputMask>
-          );
-        }}
-      />
+      {errors.cardNumber && (
+        <span className="text-sm text-red-500 font-bold">
+          {errors.cardNumber.message}
+        </span>
+      )}
+      <div className="flex gap-4">
+        <div className="flex flex-col just">
+          <Controller
+            name="expirationDate"
+            control={control}
+            rules={{ required: 'Expiration date is required' }}
+            render={({ field }) => {
+              return (
+                <InputMask mask="99/99" maskPlaceholder="" {...field}>
+                  <FormInput label="Expiration" />
+                </InputMask>
+              );
+            }}
+          />
 
-      {errors.expirationDate && <span>{errors.expirationDate.message}</span>}
-      <Controller
-        name="cvv"
-        control={control}
-        rules={{ required: 'CVV is required' }}
-        render={({ field }) => {
-          return (
-            <InputMask mask="999" maskPlaceholder="" {...field}>
-              <FormInput label="CVV" />
-            </InputMask>
-          );
-        }}
-      />
-      {errors.cvv && <span>{errors.cvv.message}</span>}
+          {errors.expirationDate && (
+            <span className="text-sm text-red-500 font-bold">
+              {errors.expirationDate.message}
+            </span>
+          )}
+        </div>
+        <div className="flex flex-col just">
+          <Controller
+            name="cvv"
+            control={control}
+            rules={{ required: 'CVV is required' }}
+            render={({ field }) => {
+              return (
+                <InputMask mask="999" maskPlaceholder="" {...field}>
+                  <FormInput label="CVV" />
+                </InputMask>
+              );
+            }}
+          />
+          {errors.cvv && (
+            <span className="text-sm text-red-500 font-bold">
+              {errors.cvv.message}
+            </span>
+          )}
+        </div>
+      </div>
       <Button text="Pay" />
     </form>
   );

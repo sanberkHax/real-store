@@ -34,9 +34,9 @@ export const Header = () => {
       </Link>
       {router.pathname === '/cart' && cart.length !== 0 ? (
         <>
-          <p className="font-bold">
-            <span>Total Price:$</span>
-            {totalPrice}
+          <p className="font-bold flex flex-col justify-center items-center">
+            Total:
+            <span className="text-orange-500"> ${totalPrice}</span>
           </p>
           <Button text="Checkout" onClick={() => router.push('/checkout')} />
         </>
