@@ -1,18 +1,27 @@
-import React from 'react';
+import clsx from 'clsx';
+import React, { ButtonHTMLAttributes, ForwardRefRenderFunction } from 'react';
 
-type Props = {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   text: string;
   className?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
-};
+}
 
-export const Button = ({ text, onClick }: Props) => {
+const Btn: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
+  { className, text, ...props },
+  ref
+) => {
   return (
     <button
-      className="bg-red-400 rounded lg text-white font-bold px-4 py-2 text-center hover:bg-red-600 active:scale-90"
-      onClick={onClick}
+      className={clsx(
+        'h-10 px-10 font-bold bg-orange-500 text-white rounded-md',
+        className
+      )}
+      ref={ref}
+      {...props}
     >
       {text}
     </button>
   );
 };
+export const Button = React.forwardRef(Btn);

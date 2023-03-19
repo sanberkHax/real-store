@@ -3,6 +3,7 @@ import { Product } from '@/types/product';
 import Image from 'next/image';
 import { useAppDispatch } from '@/redux/hooks';
 import { addToCart } from '@/redux/slices/cartSlice';
+import { Button } from '@/Components/Button/Button';
 
 function ProductDetail({ product }) {
   const dispatch = useAppDispatch();
@@ -29,12 +30,7 @@ function ProductDetail({ product }) {
       <h1 className="font-bold text-lg sm:text-xl">{product.title}</h1>
       <h2 className="text-orange-600 font-bold text-lg sm:text-xl">{`$${product.price}`}</h2>
       <p>{product.description}</p>
-      <button
-        onClick={addToCartHandler}
-        className="font-bold rounded-md bg-yellow-400 p-3 hover:bg-yellow-300"
-      >
-        Add To Cart
-      </button>
+      <Button text="Add To Cart" onClick={addToCartHandler} />
     </main>
   );
 }
