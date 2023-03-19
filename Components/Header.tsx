@@ -12,6 +12,7 @@ import {
 import { Button } from './Button/Button';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { FaShoppingCart } from 'react-icons/fa';
 
 export const Header = () => {
   const cart = useSelector(selectCartArray);
@@ -44,9 +45,8 @@ export const Header = () => {
           href="/cart"
           className="flex justify-between gap-8 items-center relative"
         >
-          <h1 className="font-bold text-xl sm:text-2xl">My Cart</h1>
-          <Image src="/cartIcon.svg" alt="Cart icon" width={35} height={35} />
-          <div className="rounded-full bg-red-400 w-8 h-8 absolute top-5 right-6 flex justify-center items-center">
+          <FaShoppingCart size={30} title="Cart" />
+          <div className="rounded-full bg-orange-500 text-white w-8 h-8 absolute top-5 right-6 flex justify-center items-center">
             <p className="font-bold">{totalQuantity}</p>
           </div>
         </Link>

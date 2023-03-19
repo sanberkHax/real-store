@@ -14,7 +14,7 @@ const DUMMY_CART: CartItem[] = [
 ];
 
 describe('Header', () => {
-  it('should render My Cart button if the cart is empty', () => {
+  it('should render cart button if the cart is empty', () => {
     mockRouter.push('/cart');
 
     renderWithProviders(<></>, {
@@ -26,7 +26,7 @@ describe('Header', () => {
         },
       },
     });
-    expect(screen.getByText(/My Cart/i)).toBeInTheDocument();
+    expect(screen.getByTitle(/Cart/i)).toBeInTheDocument();
   });
   it('should render checkout button and total price if there is a product in cart', () => {
     mockRouter.push('/cart');
