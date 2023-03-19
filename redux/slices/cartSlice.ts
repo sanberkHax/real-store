@@ -57,14 +57,7 @@ export const cartSlice = createSlice({
 
       // Remove item from cart when it's quantity is 1, otherwise decrease its quantity
       if (removedItem) {
-        if (removedItem?.quantity === 1) {
-          const filteredCart = state.cart.filter(
-            (item) => item.id !== action.payload
-          );
-          state.cart = filteredCart;
-        } else {
-          removedItem.quantity--;
-        }
+        removedItem.quantity--;
       }
     },
     deleteItem: (state, action: PayloadAction<number>) => {
