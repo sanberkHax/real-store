@@ -14,7 +14,7 @@ const Btn: ForwardRefRenderFunction<HTMLButtonElement, Props> = (
   return (
     <button
       className={clsx(
-        'h-10 px-4 sm:px-10 font-bold bg-orange-500 text-white rounded-md',
+        'h-10 px-4 sm:px-10 font-bold bg-orange-500 text-white rounded-md hover:bg-orange-600 active:scale-[0.9]',
         className
       )}
       ref={ref}
