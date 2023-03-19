@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/redux/hooks';
-import { changePrice, deleteItem, removeItem } from '@/redux/slices/cartSlice';
+import { changePrice, deleteItem } from '@/redux/slices/cartSlice';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
@@ -18,10 +18,6 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
 
   const changeQuantityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = Number(e.target.value);
-    if (newQuantity === 0) {
-      dispatch(removeItem(id));
-      return;
-    }
     setCurrentQuantity(newQuantity);
     dispatch(changePrice({ id, quantity: newQuantity }));
   };
@@ -57,7 +53,7 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
         value={currentQuantity}
         onChange={changeQuantityHandler}
         className="w-14 rounded-sm p-1 border-black border-2"
-        min="0"
+        min="1"
       />
       <FaTrash
         className="cursor-pointer"
