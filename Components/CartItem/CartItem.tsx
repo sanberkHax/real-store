@@ -50,7 +50,7 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
       </div>
       <h1 className="font-bold flex-1">{title}</h1>
       <h2 className="font-bold text-orange-600 flex-1">
-        $ {(price * quantity).toFixed(2)}
+        ${(price * quantity).toFixed(2)}
       </h2>
       <input
         aria-label="quantity-input"
