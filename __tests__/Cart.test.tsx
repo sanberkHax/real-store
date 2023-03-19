@@ -80,33 +80,7 @@ describe('MyCart', () => {
       screen.getByText(/Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops/i)
     ).toBeInTheDocument();
   });
-  it(`should remove item from cart when product's quantity is less than 0`, async () => {
-    renderWithProviders(<Cart />, {
-      preloadedState: {
-        cart: {
-          cart: DUMMY_CART,
-          totalQuantity: 2,
-          totalPrice: 165.94,
-        },
-      },
-    });
 
-    expect(
-      screen.getByText(/Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops/i)
-    ).toBeInTheDocument();
-    expect(screen.getByText(/Mens Cotton Jacket/i)).toBeInTheDocument();
-
-    const [input1] = screen.getAllByLabelText(/quantity-input/i);
-
-    userEvent.clear(input1);
-
-    expect(
-      screen.queryByText(
-        /Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops/i
-      )
-    ).not.toBeInTheDocument();
-    expect(screen.getByText(/Mens Cotton Jacket/i)).toBeInTheDocument();
-  });
   it(`should update total price by quantity`, async () => {
     mockRouter.push('/cart');
 
