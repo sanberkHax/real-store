@@ -17,7 +17,14 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
   const dispatch = useAppDispatch();
 
   const changeQuantityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newQuantity = Number(e.target.value);
+    let newQuantity = Number(e.target.value);
+
+    // Prevent quantity input from being 0
+    if (newQuantity === 0 || e.target.value === '') {
+      newQuantity = 1;
+    }
+
+    newQuantity = Number(e.target.value);
     setCurrentQuantity(newQuantity);
     dispatch(changePrice({ id, quantity: newQuantity }));
   };
@@ -29,10 +36,10 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
   return (
     <li
       className={
-        'flex justify-center items-center text-center gap-10 border-b-2 border-slate-300 p-4 flex-col sm:flex-row'
+        'flex justify-center items-center text-center gap-4 sm:gap-10 border-b-2 border-slate-300 p-4 flex-col sm:flex-row'
       }
     >
-      <div className="relative w-24 h-24 sm:w-40 sm:h-40 flex-1">
+      <div className="relative w-24 h-24 sm:w-40 sm:h-40 sm:flex-1">
         <Image
           src={image}
           fill
