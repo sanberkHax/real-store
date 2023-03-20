@@ -3,6 +3,7 @@ import { changePrice, deleteItem } from '@/redux/slices/cartSlice';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import { FaTrash } from 'react-icons/fa';
+import { toast } from 'react-toastify';
 
 type Props = {
   price: number;
@@ -18,6 +19,11 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
 
   const changeQuantityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newQuantity = Number(e.target.value);
+
+    // Prevent entering above 1000
+    if (newQuantity > 1000) {
+      return;
+    }
 
     // Prevent entering 0 at the beginning
     if (e.target.value.search(/^0/) != -1) {
@@ -40,10 +46,10 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
   return (
     <li
       className={
-        'flex justify-center items-center text-center gap-4 sm:gap-10 border-b-2 border-slate-300 p-4 flex-col sm:flex-row'
+        'flex justify-center items-center text-center gap-4 sm:gap-8 border-b-2 border-slate-300 p-4 flex-col sm:flex-row'
       }
     >
-      <div className="relative w-24 h-24 sm:w-40 sm:h-40 sm:flex-1">
+      <div className="relative w-24 h-24 sm:w-30 sm:h-30 md:w-40 md:h-40 flex-shrink-0">
         <Image
           src={image}
           fill
@@ -53,7 +59,7 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
         />
       </div>
       <h1 className="font-bold flex-1">{title}</h1>
-      <h2 className="font-bold text-orange-600 flex-1">
+      <h2 className="font-bold text-orange-600">
         ${(price * quantity).toFixed(2)}
       </h2>
       <input
@@ -64,6 +70,7 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
         value={currentQuantity}
         onChange={changeQuantityHandler}
         className="w-14 rounded-sm p-1 border-black border-2"
+        max="100"
         min="1"
       />
       <FaTrash
