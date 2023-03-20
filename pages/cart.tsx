@@ -20,8 +20,8 @@ export default function Cart() {
     <main className="flex-1 px-2 sm:px-4 md:px-8 lg:px-10 xl:px-24 py-8 flex flex-col gap-4 mt-10">
       {cart.length === 0 ? (
         <div className="flex flex-col gap-4 items-center justify-center m-auto">
-          <p className="font-bold">Your Cart Is Empty</p>
-          <Button text="Go back" onClick={goBackHandler} />
+          <h1 className="font-bold text-xl">Your Cart Is Empty</h1>
+          <Button text="Continue Shopping" onClick={goBackHandler} />
         </div>
       ) : (
         <div className="flex gap-10 m-auto h-full">

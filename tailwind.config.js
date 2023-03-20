@@ -15,7 +15,7 @@ module.exports = {
         },
       },
       animation: {
-        colorShift: 'colorShift 600ms ease-in-out',
+        colorShift: 'colorShift 1s ease-in-out',
       },
     },
   },
