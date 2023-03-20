@@ -24,7 +24,10 @@ export const OrderForm = () => {
     register,
     handleSubmit,
     control,
-    formState: { errors },
+    setValue,
+    getValues,
+    clearErrors,
+    formState: { errors, isSubmitted },
   } = useForm<FormData>();
 
   const onSubmit = (data) => {
@@ -33,8 +36,25 @@ export const OrderForm = () => {
     router.push('/');
   };
 
+  const autoFillHandler = () => {
+    clearErrors();
+    setValue('cardNumber', '1234 5678 9123 4567');
+    setValue('email', 'test@test.com');
+    setValue('expirationDate', '1223');
+    setValue('cvv', '123');
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex flex-col gap-4 border-4 border-slate-200 rounded-xl p-8"
+    >
+      <p
+        className="text-orange-500 cursor-pointer font-bold text-sm"
+        onClick={autoFillHandler}
+      >
+        Click to auto-fill test values
+      </p>
       <FormInput
         label="Email"
         {...register('email', {
@@ -54,11 +74,24 @@ export const OrderForm = () => {
       <Controller
         name="cardNumber"
         control={control}
-        rules={{ required: 'Card number is required' }}
-        render={({ field }) => {
+        rules={{
+          required: 'Card number is required',
+          minLength: {
+            value: 19,
+            message: 'Card number must be at least 16 characters',
+          },
+        }}
+        render={({ field: { onChange, onBlur, ref, value } }) => {
           return (
-            <InputMask mask="9999 9999 9999 9999" maskPlaceholder="" {...field}>
-              <FormInput label="Card Number" />
+            <InputMask
+              mask="9999 9999 9999 9999"
+              maskPlaceholder=""
+              inputRef={ref}
+              onBlur={onBlur}
+              onChange={onChange}
+              value={value}
+            >
+              <FormInput label="Card Number" ref={ref} value={value} />
             </InputMask>
           );
         }}
@@ -74,10 +107,17 @@ export const OrderForm = () => {
             name="expirationDate"
             control={control}
             rules={{ required: 'Expiration date is required' }}
-            render={({ field }) => {
+            render={({ field: { onChange, onBlur, ref, value } }) => {
               return (
-                <InputMask mask="99/99" maskPlaceholder="" {...field}>
-                  <FormInput label="Expiration" />
+                <InputMask
+                  mask="99/99"
+                  maskPlaceholder=""
+                  inputRef={ref}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  value={value}
+                >
+                  <FormInput label="Expiration" ref={ref} />
                 </InputMask>
               );
             }}
@@ -94,10 +134,17 @@ export const OrderForm = () => {
             name="cvv"
             control={control}
             rules={{ required: 'CVV is required' }}
-            render={({ field }) => {
+            render={({ field: { onChange, onBlur, ref, value } }) => {
               return (
-                <InputMask mask="999" maskPlaceholder="" {...field}>
-                  <FormInput label="CVV" />
+                <InputMask
+                  mask="999"
+                  maskPlaceholder=""
+                  inputRef={ref}
+                  onBlur={onBlur}
+                  onChange={onChange}
+                  value={value}
+                >
+                  <FormInput label="CVV" ref={ref} />
                 </InputMask>
               );
             }}
