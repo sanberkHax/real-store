@@ -9,7 +9,7 @@ import {
   updateTotalPrice,
   updateTotalQuantity,
 } from '@/redux/slices/cartSlice';
-import { Button } from './Button/Button';
+import { Button } from '@/Components/Button/Button';
 import { useRouter } from 'next/router';
 import { FaShoppingCart } from 'react-icons/fa';
 
