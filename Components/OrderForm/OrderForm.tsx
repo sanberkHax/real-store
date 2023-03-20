@@ -32,8 +32,7 @@ export const OrderForm = () => {
 
   const onSubmit = (data) => {
     dispatch(emptyCart());
-    alert(`'Order Succesful!`);
-    router.push('/');
+    router.push('/success');
   };
 
   const autoFillHandler = () => {
