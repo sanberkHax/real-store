@@ -4,9 +4,12 @@ import Image from 'next/image';
 import { useAppDispatch } from '@/redux/hooks';
 import { addToCart } from '@/redux/slices/cartSlice';
 import { Button } from '@/Components/Button/Button';
+import { useState } from 'react';
 
 function ProductDetail({ product }) {
   const dispatch = useAppDispatch();
+
+  const [effect, setEffect] = useState(false);
 
   const addToCartHandler = () => {
     const productItem = {
@@ -14,6 +17,7 @@ function ProductDetail({ product }) {
       quantity: 1,
     };
     dispatch(addToCart(productItem));
+    setEffect(true);
   };
 
   return (
@@ -32,7 +36,12 @@ function ProductDetail({ product }) {
       <p className="text-sm sm:text-md lg:px-14 xl:px-20">
         {product?.description}
       </p>
-      <Button text="Add To Cart" onClick={addToCartHandler} />
+      <Button
+        text={effect ? '+1' : 'Add To Cart'}
+        onClick={addToCartHandler}
+        className={effect && 'animate-colorShift'}
+        onAnimationEnd={() => setEffect(false)}
+      />
     </main>
   );
 }

@@ -6,7 +6,18 @@ module.exports = {
     './Components/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
-    extend: {},
+    extend: {
+      keyframes: {
+        colorShift: {
+          '0%, 100%': {
+            backgroundColor: '#22c55e',
+          },
+        },
+      },
+      animation: {
+        colorShift: 'colorShift 600ms ease-in-out',
+      },
+    },
   },
   plugins: [],
 };
