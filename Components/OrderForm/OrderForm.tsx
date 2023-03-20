@@ -46,7 +46,7 @@ export const OrderForm = () => {
       className="flex flex-col gap-4 border-4 border-slate-200 rounded-xl p-8"
     >
       <p
-        className="text-orange-500 cursor-pointer font-bold text-sm"
+        className="text-orange-500 cursor-pointer font-bold text-sm dark:text-sky-500"
         onClick={autoFillHandler}
       >
         Click to auto-fill test values

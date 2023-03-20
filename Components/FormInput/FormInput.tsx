@@ -11,13 +11,13 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
   ref
 ) => {
   return (
-    <label className="flex flex-col gap-2 font-bold">
+    <label className="flex flex-col gap-2 font-bold dark:text-white">
       {label}
       <input
         {...otherProps}
         name={name}
         ref={ref}
-        className="px-2 font-normal border-2 border-slate-400 w-full"
+        className="px-2 font-normal border-2 border-slate-400 w-full dark:text-black"
       />
     </label>
   );

@@ -17,14 +17,16 @@ export default function Cart() {
   };
 
   return (
-    <main className="flex-1 px-2 sm:px-4 md:px-8 lg:px-10 xl:px-24 py-8 flex flex-col gap-4 mt-10">
+    <main className="flex-1 px-2 dark:bg-slate-700 min-h-screen sm:px-4 md:px-8 lg:px-10 xl:px-24 py-8 flex flex-col gap-4 mt-10">
       {cart.length === 0 ? (
         <div className="flex flex-col gap-4 items-center justify-center m-auto">
-          <h1 className="font-bold text-xl">Your Cart Is Empty</h1>
+          <h1 className="font-bold text-xl dark:text-white">
+            Your Cart Is Empty
+          </h1>
           <Button text="Continue Shopping" onClick={goBackHandler} />
         </div>
       ) : (
-        <div className="flex gap-10 m-auto h-full">
+        <div className="flex gap-10 justify-center h-full">
           <ul className="flex flex-col gap-4">
             {cart?.map(({ id, image, title, price, quantity }) => (
               <CartItem

@@ -49,7 +49,7 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
         'flex justify-center items-center text-center gap-4 sm:gap-8 border-b-2 border-slate-300 p-4 flex-col sm:flex-row'
       }
     >
-      <div className="relative w-24 h-24 sm:w-30 sm:h-30 md:w-40 md:h-40 flex-shrink-0">
+      <div className="relative w-24 h-24 sm:w-30 sm:h-30 md:w-40 md:h-40 flex-shrink-0 dark:border-4 dark:border-slate-900 dark:bg-white">
         <Image
           src={image}
           fill
@@ -58,8 +58,8 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
           alt="Product Image"
         />
       </div>
-      <h1 className="font-bold flex-1">{title}</h1>
-      <h2 className="font-bold text-orange-600">
+      <h1 className="font-bold flex-1 dark:text-white">{title}</h1>
+      <h2 className="font-bold text-orange-600 dark:text-sky-500">
         ${(price * quantity).toFixed(2)}
       </h2>
       <input
@@ -74,7 +74,7 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
         min="1"
       />
       <FaTrash
-        className="cursor-pointer"
+        className="cursor-pointer dark:fill-white hover:fill-slate-800"
         onClick={deleteHandler}
         title="delete"
       />

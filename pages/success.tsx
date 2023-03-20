@@ -13,8 +13,8 @@ export default function Success() {
   };
 
   return (
-    <main className="flex-1 px-20 sm:px-4 md:px-8 lg:px-10 xl:px-24 py-8 flex flex-col justify-center items-center gap-4 sm:gap-10">
-      <h1 className="font-bold text-3xl">Order Succesful!</h1>
+    <main className="flex-1 px-20 sm:px-4 md:px-8 lg:px-10 xl:px-24 py-8 flex flex-col justify-center items-center gap-4 sm:gap-10 dark:bg-slate-700 min-h-screen">
+      <h1 className="font-bold text-3xl dark:text-white">Order Succesful!</h1>
       <Button text="Continue Shopping" onClick={continueHandler} />
     </main>
   );
