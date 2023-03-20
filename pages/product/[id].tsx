@@ -5,6 +5,7 @@ import { useAppDispatch } from '@/redux/hooks';
 import { addToCart } from '@/redux/slices/cartSlice';
 import { Button } from '@/Components/Button/Button';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 function ProductDetail({ product }) {
   const dispatch = useAppDispatch();
@@ -16,6 +17,7 @@ function ProductDetail({ product }) {
       ...product,
       quantity: 1,
     };
+    toast.success('Product Added!');
     dispatch(addToCart(productItem));
     setEffect(true);
   };
