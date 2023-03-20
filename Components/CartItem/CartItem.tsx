@@ -19,12 +19,16 @@ export const CartItem = ({ price, image, quantity, title, id }: Props) => {
   const changeQuantityHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     let newQuantity = Number(e.target.value);
 
-    // Prevent quantity input from being 0
+    // Prevent entering 0 at the beginning
+    if (e.target.value.search(/^0/) != -1) {
+      e.target.value = e.target.value[1];
+    }
+
+    // Prevent the value from being 0
     if (newQuantity === 0 || e.target.value === '') {
       newQuantity = 1;
     }
 
-    newQuantity = Number(e.target.value);
     setCurrentQuantity(newQuantity);
     dispatch(changePrice({ id, quantity: newQuantity }));
   };
