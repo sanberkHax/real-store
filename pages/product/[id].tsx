@@ -20,17 +20,17 @@ function ProductDetail({ product }) {
     <main className="flex flex-col justify-center items-center h-full p-10 sm:p-20 text-center gap-4 md:gap-10 lg:px-24 2xl:px-72">
       <div className="relative w-36 h-36 sm:w-52 sm:h-52 bg-white">
         <Image
-          alt={product.title}
-          src={product.image}
+          alt={product?.title}
+          src={product?.image}
           fill
           className="object-contain"
           unoptimized
         />
       </div>
-      <h1 className="font-bold text-lg sm:text-xl">{product.title}</h1>
-      <h2 className="text-orange-600 font-bold text-lg sm:text-xl">{`$${product.price}`}</h2>
+      <h1 className="font-bold text-lg sm:text-xl">{product?.title}</h1>
+      <h2 className="text-orange-600 font-bold text-lg sm:text-xl">{`$${product?.price}`}</h2>
       <p className="text-sm sm:text-md lg:px-14 xl:px-20">
-        {product.description}
+        {product?.description}
       </p>
       <Button text="Add To Cart" onClick={addToCartHandler} />
     </main>

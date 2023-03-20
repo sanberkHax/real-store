@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
 import { useAppDispatch } from '@/redux/hooks';
-import { selectCartArray, emptyCart } from '@/redux/slices/cartSlice';
+import { emptyCart } from '@/redux/slices/cartSlice';
 import { Button } from '@/Components/Button/Button';
 import { useRouter } from 'next/router';
 import { useForm, Controller } from 'react-hook-form';
@@ -9,7 +7,6 @@ import { FormInput } from '@/Components/FormInput/FormInput';
 import InputMask from 'react-input-mask';
 
 export const OrderForm = () => {
-  const cart = useSelector(selectCartArray);
   const dispatch = useAppDispatch();
   const router = useRouter();
 
@@ -27,12 +24,12 @@ export const OrderForm = () => {
     setValue,
     getValues,
     clearErrors,
-    formState: { errors, isSubmitted },
+    formState: { errors },
   } = useForm<FormData>();
 
   const onSubmit = (data) => {
-    dispatch(emptyCart());
     router.push('/success');
+    dispatch(emptyCart());
   };
 
   const autoFillHandler = () => {

@@ -15,6 +15,7 @@ const DUMMY_PRODUCT: Product = {
   category: "men's clothing",
   image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
 };
+
 // Intercept network request with msw and return example response
 export const handlers = [
   rest.get('https://fakestoreapi.com/products/1', (req, res, ctx) => {
