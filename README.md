@@ -6,6 +6,7 @@ Real Store is an e-commerce website I designed & built for learning purposes. It
 
 ## Tech Stack
 - TypeScript
+- Tailwind CSS
 - Next.js (SSG)
 - Redux
 - React Testing Library
