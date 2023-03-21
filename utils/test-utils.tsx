@@ -1,11 +1,13 @@
+// @ts-nocheck
+
 import React, { PropsWithChildren } from 'react';
 import { render } from '@testing-library/react';
 import type { RenderOptions } from '@testing-library/react';
-import type { PreloadedState } from '@reduxjs/toolkit';
+import { configureStore, PreloadedState } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
-import type { AppStore, RootState } from '@/redux/store';
-import { setupStore } from '@/redux/store';
+import { AppStore, RootState, setupStore } from '@/redux/store';
 import { Layout } from '@/Components/Layout';
+import cartReducer from '@/redux/slices/cartSlice';
 
 // This type interface extends the default options for render from RTL, as well
 // as allows the user to specify other things such as initialState, store.
@@ -18,14 +20,18 @@ export function renderWithProviders(
   ui: React.ReactElement,
   {
     preloadedState = {
-      cart: { cart: [], totalQuantity: 0, totalPrice: 0 },
+      cart: {
+        cart: [],
+        totalQuantity: 0,
+        totalPrice: 0,
+      },
     },
     // Automatically create a store instance if no store was passed in
     store = setupStore(preloadedState),
     ...renderOptions
   }: ExtendedRenderOptions = {}
 ) {
-  function Wrapper({ children }: PropsWithChildren<{}>): JSX.Element {
+  function Wrapper({ children }: PropsWithChildren<object>): JSX.Element {
     return (
       <Provider store={store}>
         <Layout>{children}</Layout>
