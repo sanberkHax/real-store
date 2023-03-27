@@ -3,15 +3,19 @@ import { Meta } from '@/Components/Meta/Meta';
 import { useAppDispatch } from '@/redux/hooks';
 import { emptyCart } from '@/redux/slices/cartSlice';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 export default function Success() {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
   const continueHandler = () => {
-    dispatch(emptyCart());
     router.push('/');
   };
+
+  useEffect(() => {
+    dispatch(emptyCart());
+  }, [dispatch]);
 
   return (
     <>

@@ -17,7 +17,7 @@ const Input: ForwardRefRenderFunction<HTMLInputElement, Props> = (
         {...otherProps}
         name={name}
         ref={ref}
-        className="px-2 font-normal border-2 border-slate-400 w-full dark:text-black"
+        className="p-3 font-normal border-2 border-slate-200 rounded-md  w-full dark:text-black"
       />
     </label>
   );

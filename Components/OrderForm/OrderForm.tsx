@@ -5,10 +5,12 @@ import { useRouter } from 'next/router';
 import { useForm, Controller } from 'react-hook-form';
 import { FormInput } from '@/Components/FormInput/FormInput';
 import InputMask from 'react-input-mask';
+import { useState } from 'react';
 
 export const OrderForm = () => {
   const dispatch = useAppDispatch();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   type FormData = {
     cardNumber: string;
@@ -16,6 +18,9 @@ export const OrderForm = () => {
     cvv: string;
     email: string;
   };
+
+  const mockPaymentCall = () =>
+    new Promise((resolve) => setTimeout(resolve, 2000));
 
   const {
     register,
@@ -27,9 +32,14 @@ export const OrderForm = () => {
     formState: { errors },
   } = useForm<FormData>();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    setIsLoading(true);
+
+    await mockPaymentCall();
+
+    setIsLoading(false);
+
     router.push('/success');
-    dispatch(emptyCart());
   };
 
   const autoFillHandler = () => {
@@ -60,6 +70,7 @@ export const OrderForm = () => {
           },
           required: 'Email is required',
         })}
+        disabled={isLoading}
       />
       {errors.email && (
         <span className="text-sm text-red-500 font-bold">
@@ -86,6 +97,7 @@ export const OrderForm = () => {
               onBlur={onBlur}
               onChange={onChange}
               value={value}
+              disabled={isLoading}
             >
               <FormInput label="Card Number" ref={ref} value={value} />
             </InputMask>
@@ -112,6 +124,7 @@ export const OrderForm = () => {
                   onBlur={onBlur}
                   onChange={onChange}
                   value={value}
+                  disabled={isLoading}
                 >
                   <FormInput label="Expiration" ref={ref} />
                 </InputMask>
@@ -139,6 +152,7 @@ export const OrderForm = () => {
                   onBlur={onBlur}
                   onChange={onChange}
                   value={value}
+                  disabled={isLoading}
                 >
                   <FormInput label="CVV" ref={ref} />
                 </InputMask>
@@ -152,7 +166,7 @@ export const OrderForm = () => {
           )}
         </div>
       </div>
-      <Button text="Pay" />
+      <Button text="Pay" disabled={isLoading} />
     </form>
   );
 };
