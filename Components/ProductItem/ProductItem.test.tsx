@@ -4,8 +4,14 @@ import { renderWithProviders } from './../../utils/test-utils';
 
 it('should render ProductItem correctly', () => {
   renderWithProviders(
-    <ProductItem id={1} title={'title'} price={'10'} image={''} />
+    <ProductItem
+      id={1}
+      title="Mens Cotton Jacket"
+      price={55.99}
+      image={'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'}
+    />
   );
-  expect(screen.getByText(/title/i)).toBeInTheDocument();
-  expect(screen.getByText(/10/i)).toBeInTheDocument();
+
+  expect(screen.getByText(/Mens Cotton Jacket/i)).toBeInTheDocument();
+  expect(screen.getByText(/55.99/i)).toBeInTheDocument();
 });
