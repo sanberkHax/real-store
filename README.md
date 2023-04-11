@@ -2,7 +2,7 @@
 
 Real Store is an e-commerce website I designed & built for learning purposes. It was originally a simple React test, but then I migrated it to Next.js and completely overhauled it and turned it into a decent portfolio project.
 
-[Live Site](https://real-store.sanberk.dev/)
+[Project Details](https://sanberk.dev/real-store/) / [Live Site](https://real-store.sanberk.dev/)
 
 ## Tech Stack
 - TypeScript

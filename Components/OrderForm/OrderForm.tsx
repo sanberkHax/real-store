@@ -63,6 +63,7 @@ export const OrderForm = () => {
       </p>
       <FormInput
         label="Email"
+        defaultValue=""
         {...register('email', {
           pattern: {
             value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
@@ -80,6 +81,7 @@ export const OrderForm = () => {
 
       <Controller
         name="cardNumber"
+        defaultValue=""
         control={control}
         rules={{
           required: 'Card number is required',
@@ -112,6 +114,7 @@ export const OrderForm = () => {
       <div className="flex gap-4">
         <div className="flex flex-col just">
           <Controller
+            defaultValue=""
             name="expirationDate"
             control={control}
             rules={{ required: 'Expiration date is required' }}
@@ -141,6 +144,7 @@ export const OrderForm = () => {
         <div className="flex flex-col just">
           <Controller
             name="cvv"
+            defaultValue=""
             control={control}
             rules={{ required: 'CVV is required' }}
             render={({ field: { onChange, onBlur, ref, value } }) => {
